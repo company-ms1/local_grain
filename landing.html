@@ -170,6 +170,30 @@
     .copybtn:active{transform:scale(.98)}
     .list{margin:10px 0 0 0; padding:0 0 0 22px}
     .list li{margin:6px 0}
+
+    /* Footer */
+.footer{background:linear-gradient(0deg,rgba(255,255,255,0.02),transparent),var(--card); border-top:1px solid var(--line); margin-top:24px}
+.footer .foot-grid{display:grid; gap:16px; grid-template-columns:repeat(12,1fr); padding:22px 16px}
+.footer .col{grid-column:span 12; background:transparent}
+@media (min-width:860px){
+  .footer .col.span4{grid-column:span 4}
+  .footer .col.span3{grid-column:span 3}
+  .footer .col.span5{grid-column:span 5}
+}
+.brand{display:flex; align-items:center; gap:10px}
+.brand .dot{width:34px; height:34px; border-radius:50%; background:var(--elev); display:inline-flex; align-items:center; justify-content:center; font-weight:800}
+.brand .name{font-weight:800; letter-spacing:.2px}
+.foot-list{list-style:none; padding:0; margin:10px 0 0; display:grid; gap:8px}
+.foot-list a{color:var(--text); text-decoration:none}
+.foot-list a:hover{color:var(--accent)}
+.badge-muted{display:inline-block; padding:4px 8px; border:1px solid var(--line); border-radius:999px; color:var(--muted); font-size:12px}
+.social{display:flex; gap:10px; margin-top:10px}
+.social a{display:inline-flex; width:34px; height:34px; border-radius:10px; border:1px solid var(--line); align-items:center; justify-content:center; background:var(--elev); text-decoration:none}
+.social a:hover{border-color:var(--accent); box-shadow:0 0 0 5px var(--ring)}
+.foot-bottom{border-top:1px dashed var(--line); padding:12px 16px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:space-between}
+.foot-bottom small{color:var(--muted)}
+.foot-links{display:flex; gap:14px; flex-wrap:wrap}
+    
   </style>
 </head>
 <body>
@@ -549,5 +573,72 @@ syncChips();
     fetchRate();
     compute();
   </script>
+
+
+<footer class="footer" role="contentinfo">
+  <div class="wrap foot-grid">
+    <!-- Brand & blurb -->
+    <div class="col span4">
+      <div class="brand">
+        <span class="dot">⚡</span>
+        <div>
+          <div class="name">RentTRX</div>
+          <div class="badge-muted">TRX Energy · Zero-fee transfers</div>
+        </div>
+      </div>
+      <p class="subtitle" style="margin-top:10px">
+        Buy TRX Energy for <b>3 TRX</b> and send USDT with <b>no fees</b> for 1 hour. Instant activation.
+      </p>
+      <div class="social" aria-label="Social links">
+        <a href="https://t.me/saving_trx_bot" target="_blank" rel="noopener" title="Telegram" aria-label="Telegram">💬</a>
+      </div>
+    </div>
+
+    <!-- Contacts -->
+    <div class="col span3">
+      <h4 style="margin:0 0 8px">Contacts</h4>
+      <ul class="foot-list">
+        <li>Telegram: <a href="https://t.me/saving_trx_bot" target="_blank" rel="noopener">@saving_trx_bot</a></li>
+        <li>Support: <a href="https://t.me/trx2_9_support_bot" target="_blank" rel="noopener">@trx2_9_support_bot</a></li>
+        <li>Website: <a href="https://renttrx.vercel.app" target="_blank" rel="noopener">renttrx.vercel.app</a></li>
+      </ul>
+    </div>
+
+    <!-- Quick links -->
+    <div class="col span3">
+      <h4 style="margin:0 0 8px">Quick links</h4>
+      <ul class="foot-list">
+        <li><a href="#results">Calculator</a></li>
+        <li><a href="#instSteps">How it works</a></li>
+        <li><a href="#instTariffs">Tariffs</a></li>
+        <li><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to top ↑</a></li>
+      </ul>
+    </div>
+
+    <!-- Legal -->
+    <div class="col span5">
+      <h4 style="margin:0 0 8px">Legal</h4>
+      <p class="subtitle" style="margin:8px 0">
+        RentTRX is an energy rental service for the TRON network. We do not custody user funds and are
+        not affiliated with TRON Foundation. Usage of blockchain networks involves risk.
+      </p>
+      <ul class="foot-list">
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/refund.html">Refunds</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot-bottom">
+    <small>© <span id="y"></span> RentTRX. All rights reserved.</small>
+  </div>
+</footer>
+
+<script>
+  // year in footer
+  (function(){ try{ document.getElementById('y').textContent = new Date().getFullYear(); }catch(_){} })();
+</script>
+  
 </body>
 </html>
