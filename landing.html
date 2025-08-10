@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Калькулятор и покупка энергии TRON (TRX)</title>
+  <meta name="description" content="Рассчитайте стоимость энергии TRON (TRX) и купите её по выгодной цене. Мгновенный расчёт экономии и актуального курса TRX.">
+  <meta name="keywords" content="TRON, TRX, энергия, купить энергию TRX, TRC20, перевод без комиссии, калькулятор TRON">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://example.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Калькулятор и покупка энергии TRON (TRX)">
+  <meta property="og:description" content="Рассчитайте и купите энергию TRON (TRX) по лучшей цене. Онлайн калькулятор с актуальным курсом TRX.">
+  <meta property="og:image" content="https://example.com/preview.jpg">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:site_name" content="TRON Energy">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Калькулятор и покупка энергии TRON (TRX)">
+  <meta name="twitter:description" content="Рассчитайте и купите энергию TRON (TRX) по лучшей цене. Онлайн калькулятор с актуальным курсом TRX.">
+  <meta name="twitter:image" content="https://example.com/preview.jpg">
+
+  <!-- JSON-LD (Structured Data) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"TRON Energy",
+    "url":"https://example.com/",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://example.com/?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
+
+  <meta name="theme-color" content="#0b0c10">
+  <style>
+      /* Chips */
+.chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+.chip{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:8px 12px; border-radius:999px; border:1px solid var(--line);
+  background:var(--elev); color:var(--text); cursor:pointer; font-weight:600;
+  transition:.15s border-color,.15s box-shadow,.15s transform;
+  user-select:none;
+}
+.chip:hover{border-color:var(--accent)}
+.chip:active{transform:scale(.98)}
+.chip.active{border-color:var(--accent); box-shadow:0 0 0 5px var(--ring)}
+
+    :root{
+      --bg:#0b0c10; --card:#12141a; --elev:#0f1218;
+      --text:#e8eef8; --muted:#9aa3b2; --line:#1e2430;
+      --accent:#4f8cff; --good:#19c37d; --ring:rgba(79,140,255,.35);
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f5f7fb; --card:#ffffff; --elev:#f3f5f9;
+        --text:#0d1117; --muted:#6b7280; --line:#e5e7eb; --accent:#2b6cff; --ring:rgba(43,108,255,.25);}
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:
+        radial-gradient(900px 700px at 85% -10%, rgba(79,140,255,.12), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    .wrap{max-width:1040px; margin:32px auto 40px; padding:0 16px}
+    .top{
+      display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:8px;
+      flex-wrap:wrap;
+    }
+    .title{margin:0; font-weight:800; letter-spacing:.2px; font-size:clamp(22px,4vw,36px)}
+    .subtitle{margin:6px 0 0; color:var(--muted); font-size:14px}
+
+    /* Buy banner */
+    .buybar{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      background:linear-gradient(90deg,var(--accent),rgba(79,140,255,.85));
+      color:#fff; padding:12px 14px; border-radius:12px; margin:12px 0 14px;
+      box-shadow:0 6px 20px rgba(79,140,255,.25);
+      flex-wrap:wrap;
+    }
+    .buybar b{font-weight:800}
+    .buybar .cta{
+      padding:8px 12px; background:rgba(0,0,0,.15); border:1px solid rgba(255,255,255,.35);
+      color:#fff; border-radius:10px; text-decoration:none; font-weight:700; font-size:14px
+    }
+
+    /* Flag language switcher */
+    .flags{display:flex; gap:8px; align-items:center}
+    .flag-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:40px; height:36px; border-radius:10px; border:1px solid var(--line);
+      background:var(--elev); cursor:pointer; font-size:20px; transition:.15s transform,.15s border-color,.15s box-shadow;
+      user-select:none;
+    }
+    .flag-btn:active{transform:scale(.98)}
+    .flag-btn[aria-pressed="true"]{
+      outline:0; border-color:var(--accent);
+      box-shadow:0 0 0 5px var(--ring);
+    }
+
+    .badges{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 8px}
+    .badge{font-size:13px; color:var(--muted); background:rgba(79,140,255,.08);
+      border:1px solid rgba(79,140,255,.25); padding:6px 10px; border-radius:999px}
+
+    .grid{display:grid; gap:16px; grid-template-columns:repeat(12,1fr)}
+    .card{
+      grid-column:span 12; background:var(--card); border:1px solid var(--line);
+      border-radius:16px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,.18)
+    }
+    @media (min-width:860px){ .span6{grid-column:span 6} }
+
+    label{display:block; font-weight:600; margin:4px 0 8px}
+    input[type="number"]{
+      width:100%; padding:12px 14px; background:var(--elev); color:var(--text);
+      border:1px solid var(--line); border-radius:12px; outline:0;
+      transition:.18s border-color,.18s box-shadow,.18s background;
+      -moz-appearance:textfield;
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button{ -webkit-appearance: none; margin: 0;}
+    input[type="number"]:focus{border-color:var(--accent); box-shadow:0 0 0 6px var(--ring)}
+    input[readonly]{opacity:.65; cursor:not-allowed}
+
+    .row{display:grid; grid-template-columns:1fr; gap:12px}
+    @media (min-width:560px){ .row{grid-template-columns:1fr 1fr} }
+
+    .kpi{display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; border-bottom:1px dashed var(--line)}
+    .kpi:last-child{border-bottom:0}
+    .kpi .name{color:var(--muted)}
+    .kpi .val{font-weight:800}
+    .big{font-size:clamp(18px,2.8vw,26px)}
+    .save{color:var(--good)}
+    .status{font-size:12px; color:var(--muted); margin-top:6px}
+    .footnote{margin-top:10px; color:var(--muted); font-size:13px}
+
+    /* Instruction */
+    .inst h3{margin:0 0 12px; font-size:18px}
+    .inst p{margin:10px 0}
+    .codebox{
+      position:relative; background:var(--elev); border:1px solid var(--line);
+      border-radius:12px; padding:12px 44px 12px 12px; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:14px; overflow:auto
+    }
+    .copybtn{
+      position:absolute; top:8px; right:8px;
+      padding:8px 10px; border-radius:10px; border:1px solid var(--line);
+      background:transparent; color:var(--text); cursor:pointer; font-size:12px
+    }
+    .copybtn:active{transform:scale(.98)}
+    .list{margin:10px 0 0 0; padding:0 0 0 22px}
+    .list li{margin:6px 0}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <h1 class="title" data-i18n="title">Калькулятор покупки энергии за TRX</h1>
+        <p class="subtitle" data-i18n="subtitle">Мгновенно посчитай стоимость и экономию. Курс TRX подгружается с биржи автоматически.</p>
+      </div>
+      <div class="flags" role="group" aria-label="Language">
+        <button class="flag-btn" data-lang="ru" aria-pressed="true" title="Русский" id="flag-ru">🇷🇺</button>
+        <button class="flag-btn" data-lang="en" aria-pressed="false" title="English" id="flag-en">🇬🇧</button>
+        <button class="flag-btn" data-lang="zh" aria-pressed="false" title="中文" id="flag-zh">🇨🇳</button>
+      </div>
+    </div>
+
+    <!-- BUY INFO BANNER -->
+    <div class="buybar">
+      <div id="buyInfo">💡 Здесь можно <b>не только рассчитать</b> стоимость энергии TRON, но и <b>купить её прямо сейчас</b> по выгодной цене!</div>
+      <!-- при желании можно поставить ссылку на бота -->
+      <!-- <a class="cta" href="https://t.me/your_bot" target="_blank" rel="noopener" id="buyCta">Открыть бота</a> -->
+    </div>
+
+    <div class="badges">
+      <span class="badge" data-i18n="badge_price">3 TRX = 1 перевод (65 000 энергии)</span>
+      <span class="badge" data-i18n="badge_base">База рынка: 13.5 TRX / перевод</span>
+    </div>
+
+    <div class="grid" style="margin-top:8px">
+      <!-- Inputs -->
+      <div class="card span6">
+        <label for="transfers" data-i18n="label_transfers">Сколько переводов нужно?</label>
+        <input id="transfers" type="number" min="0" step="1" value="5" />
+          <div class="chips" id="transferChips">
+  <button type="button" class="chip" data-value="1">1</button>
+  <button type="button" class="chip" data-value="2">2</button>
+  <button type="button" class="chip" data-value="3">3</button>
+  <button type="button" class="chip" data-value="4">4</button>
+  <button type="button" class="chip" data-value="5">5</button>
+</div>
+        <div class="row" style="margin-top:14px">
+          <div>
+            <label data-i18n="label_our_price">Наша цена, TRX/перевод</label>
+            <input type="number" value="3" readonly>
+          </div>
+          <div>
+            <label data-i18n="label_base_price">Базовая цена, TRX/перевод</label>
+            <input type="number" value="13.5" readonly>
+          </div>
+        </div>
+        <div class="row" style="margin-top:14px">
+          <div>
+            <label data-i18n="label_trx">Курс TRX, $</label>
+            <input id="trxUsd" type="number" value="0.33" readonly>
+            <div id="rateStatus" class="status" data-i18n="rate_loading">Загрузка курса…</div>
+          </div>
+          <div>
+            <label data-i18n="label_energy_per">Энергия на 1 перевод</label>
+            <input type="number" value="65000" readonly>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="card span6" id="results">
+        <div class="kpi"><span class="name" data-i18n="res_energy_total">Нужно энергии (всего)</span><span class="val" id="energyTotal">—</span></div>
+        <div class="kpi"><span class="name" data-i18n="res_our_cost">Стоимость у нас</span><span class="val" id="ourCost">—</span></div>
+        <div class="kpi"><span class="name" data-i18n="res_base_cost">Стоимость на рынке</span><span class="val" id="baseCost">—</span></div>
+        <div class="kpi"><span class="name big save" data-i18n="res_saving">Экономия</span><span class="val big save" id="saving">—</span></div>
+        <div class="kpi"><span class="name" data-i18n="res_discount">Скидка относительно базы</span><span class="val" id="discount">—</span></div>
+        <div class="footnote" data-i18n="footnote">Все суммы пересчитываются по текущему курсу TRX.</div>
+      </div>
+    </div>
+
+    <!-- Telegram-like instruction -->
+    <div class="card inst" style="margin-top:16px">
+      <h3 data-i18n="inst_title">Инструкция (как в Telegram-боте)</h3>
+
+      <p data-i18n="inst_tariffs_title"><b>💰 Тарифы:</b></p>
+      <p style="margin-top:-6px" id="instTariffs"></p>
+
+      <p id="instMax"></p>
+
+      <p data-i18n="inst_addr_title">📬 <b>Адрес для перевода:</b></p>
+      <div class="codebox">
+        <code id="payAddr">TVMN7iPkX4a1dLNq3qv6siGrMsjgNNfqTz</code>
+        <button class="copybtn" id="copyBtn" title="Copy">Copy</button>
+      </div>
+
+      <p id="instHowTitle" style="margin-top:10px"></p>
+      <ol class="list" id="instSteps"></ol>
+
+      <p id="instFinal"></p>
+    </div>
+  </div>
+
+  <script>
+    // ====== i18n dictionary ======
+    const I18N = {
+      ru: {
+        title:"Калькулятор покупки энергии за TRX",
+        subtitle:"Мгновенно посчитай стоимость и экономию. Курс TRX подгружается с биржи автоматически.",
+        buy_info:"💡 Здесь можно <b>не только рассчитать</b> стоимость энергии TRON, но и <b>купить её прямо сейчас</b> по выгодной цене!",
+        badge_price:"3 TRX = 1 перевод (65 000 энергии)",
+        badge_base:"База рынка: 13.5 TRX / перевод",
+        label_transfers:"Сколько переводов нужно?",
+        label_our_price:"Ваша цена, TRX/перевод",
+        label_base_price:"Базовая цена, TRX/перевод",
+        label_trx:"Курс TRX, $",
+        label_energy_per:"Энергия на 1 перевод",
+        rate_loading:"Загрузка курса…",
+        rate_ok:"Курс обновлён",
+        rate_err:"Не удалось получить курс (интернет/CORS?)",
+        res_energy_total:"Нужно энергии (всего)",
+        res_our_cost:"Стоимость у нас",
+        res_base_cost:"Стоимость на рынке",
+        res_saving:"Экономия",
+        res_discount:"Скидка относительно базы",
+        footnote:"Все суммы пересчитываются по текущему курсу TRX.",
+        inst_title:"Инструкция (как в Telegram-боте)",
+        inst_tariffs_title:"💰 <b>Тарифы:</b>",
+        inst_tariffs:[
+          "3 TRX = 1 бесплатный перевод (активированный кошелёк)",
+          "4 TRX = 1 бесплатный перевод (неактивированный кошелёк)"
+        ],
+        inst_max:"🚀✨ <b>Хотите МАКСИМУМ энергии?</b> ✨🚀<br>⚡ <b>Переведите TRX на адрес ниже и получите энергию на <i>1 ЧАС</i>!</b> ⚡",
+        inst_addr_title:"📬 <b>Адрес для перевода:</b>",
+        inst_how_title:"🛠 <i>Инструкция:</i>",
+        inst_steps:[
+          "💳 Отправьте <b>TRX</b> с того кошелька, на который хотите получить энергию",
+          "⏳ Ожидайте зачисления энергии в течение <b>1–2 минут</b>",
+          "🎉 Пользуйтесь переводами <b>без комиссии</b> в течение <b>1 часа</b>!"
+        ],
+        inst_final:"🔥 Не упустите шанс сэкономить свои TRX!",
+        copy:"Скопировать",
+        copied:"Скопировано!"
+      },
+      en: {
+        title:"TRX Energy Purchase Calculator",
+        subtitle:"Instantly estimate cost and savings. TRX price is fetched from the exchange automatically.",
+        buy_info:"💡 Here you can <b>not only calculate</b> TRON energy cost, but also <b>buy it right now</b> at a great price!",
+        badge_price:"3 TRX = 1 transfer (65,000 energy)",
+        badge_base:"Market baseline: 13.5 TRX / transfer",
+        label_transfers:"How many transfers?",
+        label_our_price:"Your price, TRX/transfer",
+        label_base_price:"Baseline, TRX/transfer",
+        label_trx:"TRX price, $",
+        label_energy_per:"Energy per transfer",
+        rate_loading:"Fetching price…",
+        rate_ok:"Price updated",
+        rate_err:"Failed to fetch price (internet/CORS?)",
+        res_energy_total:"Total energy needed",
+        res_our_cost:"Your total cost",
+        res_base_cost:"Market cost",
+        res_saving:"Savings",
+        res_discount:"Discount vs baseline",
+        footnote:"All amounts use the latest TRX price.",
+        inst_title:"Guide (Telegram-bot style)",
+        inst_tariffs_title:"💰 <b>Tariffs:</b>",
+        inst_tariffs:[
+          "3 TRX = 1 free transfer (activated wallet)",
+          "4 TRX = 1 free transfer (non-activated wallet)"
+        ],
+        inst_max:"🚀✨ <b>Want MAX energy?</b> ✨🚀<br>⚡ <b>Send TRX to the address below and get energy for <i>1 HOUR</i>!</b> ⚡",
+        inst_addr_title:"📬 <b>Transfer address:</b>",
+        inst_how_title:"🛠 <i>How it works:</i>",
+        inst_steps:[
+          "💳 Send <b>TRX</b> from the wallet that should receive the energy",
+          "⏳ Wait <b>1–2 minutes</b> for energy to arrive",
+          "🎉 Enjoy <b>fee-free</b> transfers for <b>1 hour</b>!"
+        ],
+        inst_final:"🔥 Don’t miss the chance to save your TRX!",
+        copy:"Copy",
+        copied:"Copied!"
+      },
+      zh: {
+        title:"TRX 能量购买计算器",
+        subtitle:"立即估算费用与节省。TRX 价格将自动从交易所获取。",
+        buy_info:"💡 您在这里<b>不仅可以计算</b> TRON 能量价格，还能<b>立即购买</b>，价格实惠！",
+        badge_price:"3 TRX = 1 次转账（65,000 能量）",
+        badge_base:"市场基准：13.5 TRX / 次转账",
+        label_transfers:"需要多少次转账？",
+        label_our_price:"我们的价格，TRX/次",
+        label_base_price:"基准价，TRX/次",
+        label_trx:"TRX 汇率（美元）",
+        label_energy_per:"每次转账能量",
+        rate_loading:"正在获取价格…",
+        rate_ok:"价格已更新",
+        rate_err:"获取价格失败（网络/CORS？）",
+        res_energy_total:"所需能量（总计）",
+        res_our_cost:"我们的总价",
+        res_base_cost:"市场价格",
+        res_saving:"节省",
+        res_discount:"相对基准折扣",
+        footnote:"所有金额均按最新 TRX 价格计算。",
+        inst_title:"使用说明（Telegram 机器人风格）",
+        inst_tariffs_title:"💰 <b>资费：</b>",
+        inst_tariffs:[
+          "3 TRX = 1 笔免费转账（已激活钱包）",
+          "4 TRX = 1 笔免费转账（未激活钱包）"
+        ],
+        inst_max:"🚀✨ <b>想要最大能量？</b> ✨🚀<br>⚡ <b>将 TRX 转到下方地址，可获得 <i>1 小时</i> 能量！</b> ⚡",
+        inst_addr_title:"📬 <b>转账地址：</b>",
+        inst_how_title:"🛠 <i>操作指南：</i>",
+        inst_steps:[
+          "💳 使用你希望接收能量的钱包发送 <b>TRX</b>",
+          "⏳ 等待 <b>1–2 分钟</b> 完成入账",
+          "🎉 在 <b>1 小时</b> 内享受<b>免手续费</b>转账！"
+        ],
+        inst_final:"🔥 把握机会，节省你的 TRX！",
+        copy:"复制地址",
+        copied:"已复制！"
+      }
+    };
+
+    // Chips logic
+function syncChips(){
+  const v = String(Number(document.getElementById('transfers').value)||0);
+  document.querySelectorAll('#transferChips .chip').forEach(ch=>{
+    ch.classList.toggle('active', ch.dataset.value === v);
+  });
+}
+
+// Клик по чипсу → подставить значение и пересчитать
+document.getElementById('transferChips').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.chip');
+  if(!btn) return;
+  const val = btn.dataset.value;
+  const input = document.getElementById('transfers');
+  input.value = val;
+  compute();
+  syncChips();
+});
+
+// Если пользователь поменяет поле вручную — тоже обновим подсветку
+document.getElementById('transfers').addEventListener('input', ()=>{
+  compute();
+  syncChips();
+});
+document.getElementById('transfers').addEventListener('change', ()=>{
+  compute();
+  syncChips();
+});
+
+// Вызвать один раз при загрузке
+syncChips();
+
+
+    // ====== helpers ======
+    const fmtTRX = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 6 });
+    const fmtUSD = new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+    const fmtINT = new Intl.NumberFormat('ru-RU');
+    const $ = id => document.getElementById(id);
+
+    // ====== compute ======
+    function compute(){
+      const transfers = Math.max(0, Math.floor(Number($('transfers').value) || 0));
+      const priceOur = 3;
+      const priceBase = 13.5;
+      const trxUsd = Number($('trxUsd').value) || 0;
+      const energyPer = 65000;
+
+      const energyTotal = transfers * energyPer;
+      const ourTrx  = transfers * priceOur;
+      const baseTrx = transfers * priceBase;
+      const ourUsd  = ourTrx  * trxUsd;
+      const baseUsd = baseTrx * trxUsd;
+      const saveTrx = Math.max(baseTrx - ourTrx, 0);
+      const saveUsd = saveTrx * trxUsd;
+      const discount = baseTrx > 0 ? (saveTrx / baseTrx) * 100 : 0;
+
+      $('energyTotal').textContent = transfers ? `${fmtINT.format(energyTotal)} ` : '—';
+      $('ourCost').innerHTML = transfers ? `${fmtTRX.format(ourTrx)} TRX · ${fmtUSD.format(ourUsd)}` : '—';
+      $('baseCost').innerHTML = transfers ? `${fmtTRX.format(baseTrx)} TRX · ${fmtUSD.format(baseUsd)}` : '—';
+      $('saving').innerHTML = transfers ? `${fmtTRX.format(saveTrx)} TRX · ${fmtUSD.format(saveUsd)}` : '—';
+      document.getElementById('discount').textContent = transfers ? `${discount.toFixed(1)}%` : '—';
+    }
+
+    // ====== live TRX price ======
+    async function fetchRate(){
+      const s = $('rateStatus');
+      s.textContent = t('rate_loading');
+      try{
+        const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=TRXUSDT', { cache:'no-store' });
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        const data = await res.json();
+        if(data && data.price){
+          $('trxUsd').value = Number(data.price).toFixed(6);
+          s.textContent = t('rate_ok');
+          compute();
+        }else{
+          throw new Error('Bad payload');
+        }
+      }catch(e){
+        s.textContent = t('rate_err');
+      }
+    }
+
+    // ====== i18n ======
+    function t(key){ return I18N[lang][key] ?? key; }
+    function applyText(){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        el.innerHTML = t(key);
+      });
+      // Buy banner
+      document.getElementById('buyInfo').innerHTML = I18N[lang].buy_info;
+      // Tariffs text
+      const tariffs = I18N[lang].inst_tariffs;
+      document.getElementById('instTariffs').innerHTML = `${tariffs[0]}<br>${tariffs[1]}`;
+      document.getElementById('instMax').innerHTML = I18N[lang].inst_max;
+      document.getElementById('instHowTitle').innerHTML = I18N[lang].inst_how_title;
+      document.getElementById('instFinal').innerHTML = I18N[lang].inst_final;
+      // Steps list
+      const steps = I18N[lang].inst_steps;
+      const ol = document.getElementById('instSteps');
+      ol.innerHTML = '';
+      steps.forEach(s=>{
+        const li = document.createElement('li'); li.innerHTML = s; ol.appendChild(li);
+      });
+      // Copy button label
+      const btn = document.getElementById('copyBtn'); if(btn) btn.textContent = I18N[lang].copy;
+      // Document lang attr
+      document.documentElement.lang = lang;
+      // Optional: change <title> and description for UX (search bots read initial HTML)
+      const titles = {
+        ru:"Калькулятор и покупка энергии TRON (TRX)",
+        en:"TRON (TRX) Energy Calculator & Purchase",
+        zh:"TRX 能量计算与购买"
+      };
+      document.title = titles[lang] || document.title;
+    }
+
+    // ====== flags switching ======
+    function setActiveFlag(){
+      document.querySelectorAll('.flag-btn').forEach(b=>{
+        b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
+      });
+    }
+    document.addEventListener('click', (e)=>{
+      const b = e.target.closest('.flag-btn');
+      if(!b) return;
+      const newLang = b.dataset.lang;
+      if(newLang && newLang !== lang){
+        lang = newLang;
+        localStorage.setItem('energy_lang', lang);
+        setActiveFlag();
+        applyText();
+        compute();
+      }
+    });
+
+    // ====== copy address ======
+    document.addEventListener('click', async (e)=>{
+      if(e.target && e.target.id === 'copyBtn'){
+        try{
+          const addr = document.getElementById('payAddr').textContent.trim();
+          await navigator.clipboard.writeText(addr);
+          const btn = e.target;
+          const old = btn.textContent;
+          btn.textContent = I18N[lang].copied;
+          setTimeout(()=>btn.textContent = I18N[lang].copy, 1400);
+        }catch(_){}
+      }
+    });
+
+    // ====== language state ======
+    let lang = localStorage.getItem('energy_lang') || 'ru';
+    setActiveFlag();
+
+    // Wire input (чтобы считалось при вводе)
+    document.getElementById('transfers').addEventListener('input', compute);
+    document.getElementById('transfers').addEventListener('change', compute);
+
+    // Init
+    applyText();
+    fetchRate();
+    compute();
+  </script>
+</body>
+</html>
