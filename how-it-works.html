@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <!-- META -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title data-i18n="page_title">Как это работает — RentTRX</title>
+  <meta name="description" content="Мы застейкали десятки тысяч долларов в TRX и делегируем энергию пользователям за небольшую плату. Узнайте, как это работает и почему это выгодно." />
+  <meta name="theme-color" content="#0b0c10">
+
+  <!-- STYLE (в стиле калькулятора) -->
+  <style>
+  :root{
+  --bg:#0a0c12; --card:#171b24; --elev:#0f141d;
+  --text:#f0f4fb; --muted:#a8b1c2; --line:#2a3242;
+  --accent:#6aa1ff; --good:#20d490; --ring:rgba(106,161,255,.4);
+}
+
+/* сброс */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:
+    radial-gradient(900px 700px at 85% -10%, rgba(106,161,255,.12), transparent 60%),
+    var(--bg);
+  color:var(--text);
+  font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+
+.wrap{
+  max-width:1040px;
+  margin:0 auto;
+  padding:24px 16px 40px;
+}
+
+/* header */
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:16px;
+}
+.title{
+  font-weight:800;
+  font-size:clamp(22px,4vw,36px);
+}
+.subtitle{
+  color:var(--muted);
+  font-size:14px;
+  margin-top:4px;
+}
+
+/* flags */
+.flags{
+  display:flex;
+  gap:8px;
+}
+.flag-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px; height:36px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--elev),#101622);
+  font-size:20px;
+  cursor:pointer;
+  transition:.15s transform,.15s border-color,.15s box-shadow;
+}
+.flag-btn:hover{transform:translateY(-1px)}
+.flag-btn[aria-pressed="true"]{
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px var(--ring);
+}
+
+/* badges */
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:12px 0 20px;
+}
+.badge{
+  font-size:13px;
+  background:#0f1b2e;
+  border:1px solid #345;
+  padding:6px 10px;
+  border-radius:999px;
+}
+
+/* grid / cards */
+.grid{
+  display:grid;
+  gap:16px;
+  grid-template-columns:1fr;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+.h2{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+.muted{color:var(--muted)}
+.list{padding-left:18px;margin-top:8px}
+.list li{margin-bottom:6px}
+
+.kpis{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.kpi{
+  background:var(--elev);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+}
+.kpi .name{font-size:12px;color:var(--muted)}
+.kpi .val{font-size:20px;font-weight:900;margin-top:4px}
+.kpi.good .val{color:var(--good)}
+
+.cta-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+.btn{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid #2b89ff;
+  background:linear-gradient(180deg,var(--accent),#2b89ff);
+  color:#071635;
+  font-weight:900;
+  cursor:pointer;
+  transition:.15s;
+  text-decoration:none;
+}
+.btn.secondary{
+  background:transparent;
+  border-color:var(--line);
+  color:var(--text);
+}
+.btn:active{transform:scale(.98)}
+
+.faq dt{font-weight:800;margin-top:8px}
+.faq dd{margin:6px 0 12px;color:var(--muted)}
+
+.foot{
+  margin-top:20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+.link{color:#8ec2ff;text-decoration:none}
+.link:hover{text-decoration:underline}
+
+/* адаптив */
+@media (min-width:768px){
+  .grid{grid-template-columns:2fr 1fr}
+}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- HEADER -->
+    <div class="top">
+      <div>
+        <h1 class="title" data-i18n="page_title">Как это работает — RentTRX</h1>
+        <p class="subtitle" data-i18n="page_sub">Прозрачно объясняем, откуда берётся энергия и почему с нами дешевле.</p>
+      </div>
+      <div class="flags" role="group" aria-label="Language">
+        <button class="flag-btn" data-lang="ru" aria-pressed="true"  title="Русский">🇷🇺</button>
+        <button class="flag-btn" data-lang="en" aria-pressed="false" title="English">🇬🇧</button>
+        <button class="flag-btn" data-lang="zh" aria-pressed="false" title="中文">🇨🇳</button>
+      </div>
+    </div>
+
+    <div class="badges">
+      <span class="badge" data-i18n="badge_1">Мы застейкали десятки тысяч $ в TRX</span>
+      <span class="badge" data-i18n="badge_2">Получаем энергию от сети TRON</span>
+      <span class="badge" data-i18n="badge_3">Делегируем за небольшую плату</span>
+      <span class="badge" data-i18n="badge_4">Мгновенная выдача на адрес оплаты</span>
+    </div>
+
+    <!-- WHAT / HOW -->
+    <div class="grid">
+      <section class="card span8">
+        <h2 class="h2" data-i18n="what_title">Что мы делаем</h2>
+        <p class="muted" data-i18n="what_p1">
+          Мы кладём собственный TRX в стейкинг (это «заморозка» под валидаторов), за что сеть регулярно выдаёт ресурсы — в т.ч. энергию.
+        </p>
+        <p class="muted" data-i18n="what_p2">
+          Дальше мы делегируем эту энергию пользователям на короткий срок, чтобы их переводы по TRC20 проходили почти без комиссий TRX.
+        </p>
+        <ul class="list">
+          <li data-i18n="what_li1">Энергия начисляется автоматически на <b>тот же адрес</b>, с которого вы оплатили.</li>
+          <li data-i18n="what_li2">Оплата — фиксированная и понятная, без скрытых комиссий.</li>
+          <li data-i18n="what_li3">Через 1 час аренда завершится автоматически.</li>
+        </ul>
+
+        <div class="cta-row">
+          <a href="index.html" class="btn" data-i18n="cta_calc">Перейти к калькулятору</a>
+          <a href="#faq" class="btn secondary" data-i18n="cta_faq">Частые вопросы</a>
+        </div>
+      </section>
+
+      <!-- KPIs / TRUST -->
+      <aside class="card span4">
+        <h2 class="h2" data-i18n="trust_title">Цифры и надёжность</h2>
+        <div class="kpis">
+          <div class="kpi">
+            <div class="name" data-i18n="kpi_stake_name">Стейк под управлением</div>
+            <div class="val" data-i18n="kpi_stake_val">>$10,000s</div>
+          </div>
+          <div class="kpi">
+            <div class="name" data-i18n="kpi_uptime_name">Аптайм сервиса</div>
+            <div class="val">99.9%</div>
+          </div>
+          <div class="kpi good">
+            <div class="name" data-i18n="kpi_save_name">Экономия на перевод</div>
+            <div class="val" data-i18n="kpi_save_val">до 70–80%</div>
+          </div>
+          <div class="kpi">
+            <div class="name" data-i18n="kpi_speed_name">Время зачисления</div>
+            <div class="val" data-i18n="kpi_speed_val">~1–2 мин</div>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:10px" data-i18n="trust_note">
+          Мы не храним ваши средства: вы отправляете TRX за аренду — сеть начисляет энергию на ваш адрес.
+        </p>
+      </aside>
+    </div>
+
+    <!-- HOW IT WORKS STEPS -->
+    <section class="card" style="margin-top:16px">
+      <h2 class="h2" data-i18n="how_title">Как это работает по шагам</h2>
+      <ol class="list">
+        <li data-i18n="how_1"><b>Выбираете</b> количество переводов и оплачиваете аренду TRX (1 час).</li>
+        <li data-i18n="how_2"><b>Сеть TRON</b> начисляет энергию на ваш адрес (1–2 минуты).</li>
+        <li data-i18n="how_3"><b>Отправляете USDT</b> и другие TRC20 — комиссии TRX списываются из энергии, почти бесплатно.</li>
+        <li data-i18n="how_4"><b>Через час</b> аренда заканчивается автоматически. Можно повторить.</li>
+      </ol>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="card" style="margin-top:16px">
+      <h2 class="h2">FAQ</h2>
+      <dl class="faq">
+        <dt data-i18n="faq_q1">Куда зачисляется энергия?</dt>
+        <dd data-i18n="faq_a1">На тот же TRON-адрес, с которого была оплата.</dd>
+
+        <dt data-i18n="faq_q2">Почему так дёшево?</dt>
+        <dd data-i18n="faq_a2">Мы используем собственный стейк TRX и делим энергию с пользователями — вы платите только небольшую плату за делегирование.</dd>
+
+        <dt data-i18n="faq_q3">Нужно ли переводить свои USDT к вам?</dt>
+        <dd data-i18n="faq_a3">Нет. Мы ничего не храним. Энергия приходит на ваш адрес, и вы сами отправляете токены.</dd>
+
+        <dt data-i18n="faq_q4">Сколько ждать?</dt>
+        <dd data-i18n="faq_a4">Обычно 1–2 минуты после оплаты.</dd>
+      </dl>
+
+      <div class="cta-row" style="margin-top:6px">
+        <a href="index.html" class="btn" data-i18n="cta_back_calc">← К калькулятору</a>
+        <a href="https://t.me/saving_trx_bot" target="_blank" rel="noopener" class="btn secondary">Telegram</a>
+      </div>
+    </section>
+
+    <p class="foot">© <span id="y"></span> RentTRX · <a class="link" href="index.html" data-i18n="back_link">вернуться к калькулятору</a></p>
+  </div>
+
+  <!-- LANGUAGE + INIT -->
+  <script>
+    const I18N = {
+      ru: {
+        page_title:"Как это работает — RentTRX",
+        page_sub:"Прозрачно объясняем, откуда берётся энергия и почему с нами дешевле.",
+        badge_1:"Мы застейкали десятки тысяч $ в TRX",
+        badge_2:"Получаем энергию от сети TRON",
+        badge_3:"Делегируем за небольшую плату",
+        badge_4:"Мгновенная выдача на адрес оплаты",
+
+        what_title:"Что мы делаем",
+        what_p1:"Мы кладём собственный TRX в стейкинг (это «заморозка» под валидаторов), за что сеть регулярно выдаёт ресурсы — в т.ч. энергию.",
+        what_p2:"Дальше мы делегируем эту энергию пользователям на короткий срок, чтобы их переводы по TRC20 проходили почти без комиссий TRX.",
+        what_li1:"Энергия начисляется автоматически на <b>тот же адрес</b>, с которого вы оплатили.",
+        what_li2:"Оплата — фиксированная и понятная, без скрытых комиссий.",
+        what_li3:"Через 1 час аренда завершится автоматически.",
+        cta_calc:"Перейти к калькулятору",
+        cta_faq:"Частые вопросы",
+
+        trust_title:"Цифры и надёжность",
+        kpi_stake_name:"Стейк под управлением",
+        kpi_stake_val:">$10,000s",
+        kpi_uptime_name:"Аптайм сервиса",
+        kpi_save_name:"Экономия на перевод",
+        kpi_save_val:"до 70–80%",
+        kpi_speed_name:"Время зачисления",
+        kpi_speed_val:"~1–2 мин",
+        trust_note:"Мы не храним ваши средства: вы отправляете TRX за аренду — сеть начисляет энергию на ваш адрес.",
+
+        how_title:"Как это работает по шагам",
+        how_1:"<b>Выбираете</b> количество переводов и оплачиваете аренду TRX (1 час).",
+        how_2:"<b>Сеть TRON</b> начисляет энергию на ваш адрес (1–2 минуты).",
+        how_3:"<b>Отправляете USDT</b> и другие TRC20 — комиссии TRX списываются из энергии, почти бесплатно.",
+        how_4:"<b>Через час</b> аренда заканчивается автоматически. Можно повторить.",
+
+        faq_q1:"Куда зачисляется энергия?",
+        faq_a1:"На тот же TRON-адрес, с которого была оплата.",
+        faq_q2:"Почему так дёшево?",
+        faq_a2:"Мы используем собственный стейк TRX и делим энергию с пользователями — вы платите только небольшую плату за делегирование.",
+        faq_q3:"Нужно ли переводить свои USDT к вам?",
+        faq_a3:"Нет. Мы ничего не храним. Энергия приходит на ваш адрес, и вы сами отправляете токены.",
+        faq_q4:"Сколько ждать?",
+        faq_a4:"Обычно 1–2 минуты после оплаты.",
+
+        cta_back_calc:"← К калькулятору",
+        back_link:"вернуться к калькулятору"
+      },
+      en: {
+        page_title:"How It Works — RentTRX",
+        page_sub:"Clear explanation of where energy comes from and why it's cheaper with us.",
+        badge_1:"We staked tens of thousands of $ in TRX",
+        badge_2:"We receive Energy from TRON network",
+        badge_3:"We delegate it for a small fee",
+        badge_4:"Instant credit to the paying address",
+
+        what_title:"What we do",
+        what_p1:"We stake our own TRX with validators. The network regularly issues resources, including Energy.",
+        what_p2:"We then delegate this Energy short-term so your TRC20 transfers go through with near-zero TRX fees.",
+        what_li1:"Energy is credited automatically to the <b>same address</b> you paid from.",
+        what_li2:"Pricing is fixed and transparent, no hidden fees.",
+        what_li3:"The rental ends automatically after 1 hour.",
+        cta_calc:"Go to Calculator",
+        cta_faq:"FAQ",
+
+        trust_title:"Numbers & Trust",
+        kpi_stake_name:"Stake under management",
+        kpi_stake_val:">$10,000s",
+        kpi_uptime_name:"Service uptime",
+        kpi_save_name:"Per-transfer savings",
+        kpi_save_val:"up to 70–80%",
+        kpi_speed_name:"Credit time",
+        kpi_speed_val:"~1–2 min",
+        trust_note:"We don’t custody your funds: you pay TRX for rental, the network credits Energy to your address.",
+
+        how_title:"Step-by-step",
+        how_1:"<b>Select</b> number of transfers and pay the 1-hour rental in TRX.",
+        how_2:"<b>TRON network</b> credits Energy to your address (1–2 minutes).",
+        how_3:"<b>Send USDT</b> and other TRC20 — TRX fees are covered by Energy, almost free.",
+        how_4:"<b>After an hour</b> the rental ends automatically. Repeat if needed.",
+
+        faq_q1:"Where is Energy credited?",
+        faq_a1:"To the same TRON address from which you paid.",
+        faq_q2:"Why is it so cheap?",
+        faq_a2:"We use our own TRX stake and share Energy with users — you only pay a small delegation fee.",
+        faq_q3:"Do I need to send my USDT to you?",
+        faq_a3:"No. We don’t hold funds. Energy arrives to your address and you send tokens yourself.",
+        faq_q4:"How long does it take?",
+        faq_a4:"Usually 1–2 minutes after payment.",
+
+        cta_back_calc:"← Back to Calculator",
+        back_link:"back to calculator"
+      },
+      zh: {
+        page_title:"它是如何工作的 — RentTRX",
+        page_sub:"清楚说明能量来源以及为什么更省钱。",
+        badge_1:"我们质押了数万美元的 TRX",
+        badge_2:"从 TRON 网络获取能量",
+        badge_3:"以小额费用委托给用户",
+        badge_4:"即时发放到付款地址",
+
+        what_title:"我们在做什么",
+        what_p1:"我们把自有 TRX 质押给验证者，网络会定期发放资源（包括能量）。",
+        what_p2:"然后把能量短期委托给用户，让 TRC20 转账几乎无需 TRX 手续费。",
+        what_li1:"能量会自动发放到<b>与支付相同</b>的钱包地址。",
+        what_li2:"价格透明、固定，无隐藏费用。",
+        what_li3:"租期 1 小时，到时自动结束。",
+        cta_calc:"前往计算器",
+        cta_faq:"常见问题",
+
+        trust_title:"数据与可信度",
+        kpi_stake_name:"管理中的质押规模",
+        kpi_stake_val:">$10,000s",
+        kpi_uptime_name:"服务可用性",
+        kpi_save_name:"单笔节省",
+        kpi_save_val:"最高 70–80%",
+        kpi_speed_name:"到账时间",
+        kpi_speed_val:"约 1–2 分钟",
+        trust_note:"我们不托管你的资金：你支付 TRX 租金，网络把能量发放到你的地址。",
+
+        how_title:"操作步骤",
+        how_1:"<b>选择</b>转账次数并用 TRX 支付 1 小时租金。",
+        how_2:"<b>TRON 网络</b>把能量发放到你的地址（1–2 分钟）。",
+        how_3:"<b>发送 USDT</b> 等 TRC20 代币——TRX 手续费由能量抵扣，几乎为零。",
+        how_4:"<b>一小时后</b>租期自动结束，需要可再次租用。",
+
+        faq_q1:"能量发到哪里？",
+        faq_a1:"发到与你付款相同的 TRON 地址。",
+        faq_q2:"为什么便宜？",
+        faq_a2:"我们使用自有 TRX 质押并分享能量，你只需支付小额委托费用。",
+        faq_q3:"需要把 USDT 转给你们吗？",
+        faq_a3:"不需要。我们不保管资金。能量到你地址，由你自己转币。",
+        faq_q4:"需要多久？",
+        faq_a4:"通常在支付后 1–2 分钟内。",
+
+        cta_back_calc:"← 返回计算器",
+        back_link:"返回计算器"
+      }
+    };
+
+    // lang state
+    let lang = localStorage.getItem('energy_lang') || document.documentElement.lang || 'ru';
+    function t(key){ return (I18N[lang] && I18N[lang][key]) || key; }
+
+    function applyText(){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if (key && I18N[lang] && I18N[lang][key]) el.innerHTML = I18N[lang][key];
+      });
+      document.title = t('page_title');
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.flag-btn').forEach(b=>{
+        b.setAttribute('aria-pressed', b.dataset.lang===lang ? 'true' : 'false');
+      });
+    }
+
+    document.addEventListener('click', (e)=>{
+      const b = e.target.closest('.flag-btn');
+      if(!b) return;
+      const newLang = b.dataset.lang;
+      if(newLang && newLang !== lang){
+        lang = newLang;
+        localStorage.setItem('energy_lang', lang);
+        applyText();
+      }
+    });
+
+    // init
+    (function(){ try{ document.getElementById('y').textContent = new Date().getFullYear(); }catch(_){} })();
+    applyText();
+  </script>
+</body>
+</html>
