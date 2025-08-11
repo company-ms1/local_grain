@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <!-- META -->
   <meta charset="utf-8" />
@@ -422,7 +422,7 @@ body{
     };
 
     // lang state
-    let lang = localStorage.getItem('energy_lang') || document.documentElement.lang || 'ru';
+    let lang = localStorage.getItem('energy_lang') || document.documentElement.lang || 'en';
     function t(key){ return (I18N[lang] && I18N[lang][key]) || key; }
 
     function applyText(){
