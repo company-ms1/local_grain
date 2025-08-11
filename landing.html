@@ -11,6 +11,25 @@
 
   gtag('config', 'AW-17462758132');
 </script>
+<script>
+  // Конверсия Google Ads: вызов при клике на "Copy"
+  function gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof url !== 'undefined') {
+        window.location = url;
+      }
+    };
+    try {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-17462758132/KNmRCJKGiIQbEPSV8oZB',
+        'value': 1.0,
+        'currency': 'USD',
+        'event_callback': callback
+      });
+    } catch(e) {}
+    return false;
+  }
+</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
@@ -554,19 +573,25 @@ syncChips();
       }
     });
 
-    // ====== copy address ======
-    document.addEventListener('click', async (e)=>{
-      if(e.target && e.target.id === 'copyBtn'){
-        try{
-          const addr = document.getElementById('payAddr').textContent.trim();
-          await navigator.clipboard.writeText(addr);
-          const btn = e.target;
-          const old = btn.textContent;
-          btn.textContent = I18N[lang].copied;
-          setTimeout(()=>btn.textContent = I18N[lang].copy, 1400);
-        }catch(_){}
+// ====== copy address + conversion ======
+document.addEventListener('click', async (e)=>{
+  if(e.target && e.target.id === 'copyBtn'){
+    const addr = document.getElementById('payAddr').textContent.trim();
+    try {
+      await navigator.clipboard.writeText(addr);
+      const btn = e.target;
+      btn.textContent = I18N[lang].copied;
+      setTimeout(()=>btn.textContent = I18N[lang].copy, 1400);
+    } catch (_) {
+      // можно показать тост/ошибку при необходимости
+    } finally {
+      // отправляем событие конверсии в любом случае
+      if (typeof gtag_report_conversion === 'function') {
+        gtag_report_conversion();
       }
-    });
+    }
+  }
+});
 
     // ====== language state ======
     let lang = localStorage.getItem('energy_lang') || 'en';
