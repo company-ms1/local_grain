@@ -384,7 +384,7 @@
       const ePer=ENERGY_PER_TX[st.usdt], totalTRX=PRICE_PER_TX[st.usdt];
       mAmount.textContent=`${nf(totalTRX,2)} TRX`; mAddr.textContent=PAY_TO_ADDRESS;
       const memo = encodeURIComponent(`TRON ENERGY | tx:1 | e/tx:${ePer}`);
-      const uri = `tron:${PAY_TO_ADDRESS}?amount=${(totalTRX).toFixed(6)}&memo=${memo}`;
+      const uri = `${PAY_TO_ADDRESS}?amount=${(totalTRX).toFixed(6)}&memo=${memo}`;
       mQR.src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(uri)}`;
       mOrderMeta.textContent = `${t('order_meta_prefix')}: 1 · ${st.usdt==='has'?t('has_usdt'):t('no_usdt')}`;
       modal.classList.add('open');
