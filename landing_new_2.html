@@ -157,7 +157,7 @@
     <div class="buybar"><div id="buyInfo">💡 Здесь можно <b>не только рассчитать</b> стоимость энергии TRON, но и <b>купить её прямо сейчас</b> по выгодной цене!</div></div>
 
     <div class="badges">
-      <span class="badge" data-i18n="badge_price">3 TRX = 1 перевод (есть USDT) · 6 TRX = 1 перевод (нет USDT)</span>
+      <span class="badge" data-i18n="badge_price">2.9 TRX = 1 перевод (есть USDT) · 5.8 TRX = 1 перевод (нет USDT)</span>
       <span class="badge" data-i18n="badge_base">Рынок: 13.5 TRX (есть USDT) · 27 TRX (нет USDT)</span>
     </div>
 
@@ -181,7 +181,7 @@
           <div class="save-top">
             <div class="save-title" data-i18n="total_to_pay">Итого к оплате</div>
             <div class="save-vals">
-              <div class="now" id="k_total">3.00 TRX</div>
+              <div class="now" id="k_total">2.90 TRX</div>
               <span class="save-badge" id="saveBadge">% </span>
               <div class="base"><s id="k_totalBase">13.50 TRX</s></div>
             </div>
@@ -190,7 +190,7 @@
           <div class="save-grid">
             <div class="save-pill">
               <div class="name" data-i18n="you_save_trx">Экономия (TRX)</div>
-              <div class="val" id="k_saveTrx">10.50 TRX</div>
+              <div class="val" id="k_saveTrx">10.60 TRX</div>
             </div>
             <div class="save-pill">
               <div class="name" data-i18n="you_save_usd">Экономия (USD)</div>
@@ -202,7 +202,7 @@
         <div class="kpis" style="margin-top:10px">
           <div class="kpi">
             <div class="name" data-i18n="price_per">Цена за 1 перевод</div>
-            <div id="k_pp" class="val">3.00 TRX</div>
+            <div id="k_pp" class="val">2.90 TRX</div>
           </div>
           <div class="kpi">
             <div class="name" data-i18n="energy_per">Энергии на 1 перевод</div>
@@ -228,7 +228,7 @@
       <p id="instMax"></p>
       <p data-i18n="inst_addr_title">📬 <b>Адрес для перевода:</b></p>
       <div class="codebox">
-        <code id="payAddr">TVMN7iPkX4a1dLNq3qv6siGrMsjgNNfqTz</code>
+        <code id="payAddr">TS72Kv1sn58WwzFW5RPWykfYXF93YQmzkN</code>
         <button class="copybtn" id="copyBtn" title="Copy" data-i18n="copy">Скопировать</button>
       </div>
       <p id="instHowTitle" style="margin-top:10px"></p>
@@ -288,8 +288,8 @@
     let lang = localStorage.getItem('energy_lang') || 'ru';
 
     // === цены/энергия ===
-    const PAY_TO_ADDRESS="TVMN7iPkX4a1dLNq3qv6siGrMsjgNNfqTz"; // замени при необходимости
-    const PRICE_PER_TX={has:3.0, none:6.0};        // 6 TRX если на кошельке нет USDT
+    const PAY_TO_ADDRESS="TS72Kv1sn58WwzFW5RPWykfYXF93YQmzkN"; // замени при необходимости
+    const PRICE_PER_TX={has:2.9, none:5.8};        // 6 TRX если на кошельке нет USDT
     const PRICE_BASE   ={has:13.5, none:27.0};     // «своими TRX»: 27 TRX когда нет USDT
     const ENERGY_PER_TX={has:65000, none:130000};
 
@@ -454,7 +454,7 @@
     <div class="wrap foot-grid">
       <div class="col span4">
         <div class="brand"><span class="dot">⚡</span><div><div class="name">RentTRX</div><div class="badge-muted">TRX Energy · Zero-fee transfers</div></div></div>
-        <p class="subtitle" style="margin-top:8px">Buy TRX Energy for <b>3 TRX</b> (has USDT) or <b>6 TRX</b> (no USDT). Energy applies to <b>one transfer</b>. Instant activation.</p>
+        <p class="subtitle" style="margin-top:8px">Buy TRX Energy for <b>2.9 TRX</b> (has USDT) or <b>5.8 TRX</b> (no USDT). Energy applies to <b>one transfer</b>. Instant activation.</p>
         <div class="social" aria-label="Social links">
           <a href="https://t.me/saving_trx_bot" target="_blank" rel="noopener" title="Telegram" aria-label="Telegram">💬</a>
           <a href="https://t.me/trx2_9_support_bot" target="_blank" rel="noopener" title="Support" aria-label="Support">🛟</a>
