@@ -157,8 +157,8 @@
     <div class="buybar"><div id="buyInfo">💡 Здесь можно <b>не только рассчитать</b> стоимость энергии TRON, но и <b>купить её прямо сейчас</b> по выгодной цене!</div></div>
 
     <div class="badges">
-      <span class="badge" data-i18n="badge_price">3 TRX = 1 перевод (есть USDT) · 6 TRX = 1 перевод (нет USDT)</span>
-      <span class="badge" data-i18n="badge_base">Рынок: 13.5 TRX (есть USDT) · 27 TRX (нет USDT)</span>
+      <span class="badge" data-i18n="badge_price">1.8 TRX = 1 перевод (есть USDT) · 6 TRX = 1 перевод (нет USDT)</span>
+      <span class="badge" data-i18n="badge_base">Рынок: 3.6 TRX (есть USDT) · 13 TRX (нет USDT)</span>
     </div>
 
     <!-- КАЛЬКУЛЯТОР (компакт) -->
@@ -228,7 +228,7 @@
       <p id="instMax"></p>
       <p data-i18n="inst_addr_title">📬 <b>Адрес для перевода:</b></p>
       <div class="codebox">
-        <code id="payAddr">TDmt2ieRw2YsvTERcQmth3H4kCHqsPHArp</code>
+        <code id="payAddr">TQ4Yi8UnRpfW5WS7ZhuSDps4uWQss55555</code>
         <button class="copybtn" id="copyBtn" title="Copy" data-i18n="copy">Скопировать</button>
       </div>
       <p id="instHowTitle" style="margin-top:10px"></p>
@@ -288,9 +288,9 @@
     let lang = localStorage.getItem('energy_lang') || 'ru';
 
     // === цены/энергия ===
-    const PAY_TO_ADDRESS="TDmt2ieRw2YsvTERcQmth3H4kCHqsPHArp"; // замени при необходимости
-    const PRICE_PER_TX={has:3, none:6};        // 6 TRX если на кошельке нет USDT
-    const PRICE_BASE   ={has:13.5, none:27.0};     // «своими TRX»: 27 TRX когда нет USDT
+    const PAY_TO_ADDRESS="TQ4Yi8UnRpfW5WS7ZhuSDps4uWQss55555"; // замени при необходимости
+    const PRICE_PER_TX={has:1.8, none:6};        // 6 TRX если на кошельке нет USDT
+    const PRICE_BASE   ={has:3.5, none:13};     // «своими TRX»: 27 TRX когда нет USDT
     const ENERGY_PER_TX={has:65000, none:130000};
 
     // KPI элементы
